@@ -191,7 +191,7 @@ public class NewPostScreen extends JFrame {
             return;
         }
 
-        Apt post = new Apt();
+        Apartment post = new Apartment();
         post.setType(type);
         post.setPrice(price);
         post.setArea(area);

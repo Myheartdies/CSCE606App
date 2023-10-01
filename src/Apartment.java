@@ -3,7 +3,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Apt {
+public class Apartment {
     private int ID;
     private int posterID;
     private String address;

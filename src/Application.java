@@ -32,14 +32,14 @@ public class Application {
 
     private MainScreen mainScreen = new MainScreen();
     private RegisterScreen regScreen = new RegisterScreen();
-    private ListingScreen aptList = new ListingScreen();
+    private AptListScreen aptList = new AptListScreen();
     private NewPostScreen postingScreen = new NewPostScreen();
 
     public NewPostScreen getPostingScreen() {
         return postingScreen;
     }
 
-    public ListingScreen getAptList() {
+    public AptListScreen getAptList() {
         return aptList;
     }
 
