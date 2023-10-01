@@ -28,7 +28,7 @@ public class NewPostScreen extends JFrame {
     private JTextField addressField = new JTextField(8);
     private JTextField areaField = new JTextField(4);
     private JTextField typeField = new JTextField(4);
-    private String[] types = {"1b1b","2b2b"};
+    private String[] types = { "1b1b", "2b2b" };
     private JComboBox<String> typeSelect = new JComboBox<>(types);
     private JTextField dateField = new JTextField(8);
     private JTextField priceField = new JTextField(4);
@@ -65,13 +65,10 @@ public class NewPostScreen extends JFrame {
         panelInputAddress.add(new JLabel("Price (per month): "));
         panelInputAddress.add(priceField);
         SpringUtilities.makeCompactGrid(panelInputAddress,
-                5, 2, //rows, cols
-                6, 6,        //initX, initY
-                6, 6);       //xPad, yPad
+                5, 2, // rows, cols
+                6, 6, // initX, initY
+                6, 6); // xPad, yPad
         this.getContentPane().add(panelInputAddress);
-
-
-
 
         JPanel panelDescr = new JPanel();
         // panelDescr.setBackground(Color.red);
@@ -82,12 +79,11 @@ public class NewPostScreen extends JFrame {
         descrLabel.setAlignmentX(LEFT_ALIGNMENT);
         // descrLabel.setBackground(Color.red);
         descrField.setAlignmentX(LEFT_ALIGNMENT);
-        // Dimension preferredSize = descrField.getPreferredSize();
-        // descrField.setMaximumSize(new Dimension(preferredSize.width, preferredSize.height));
 
         panelDescr.add(descrLabel);
         panelDescr.add(new JScrollPane(descrField));
-        descrField.setText("Other information you want to share with potential renters, like: \n Amenities, views around the property, is it close to a supermarket, etc.");
+        descrField.setText(
+                "Other information you want to share with potential renters, like: \n Amenities, views around the property, is it close to a supermarket, etc.");
         // panelDescr.setLayout(new BoxLayout(panelDescr, BoxLayout.Y_AXIS));
         // descrField.setAlignmentX(Component.LEFT_ALIGNMENT);
         this.getContentPane().add(panelDescr);
