@@ -63,28 +63,30 @@ public class LoginScreen extends JFrame {
         );
     }
 
+    // The Controller componenet has been moved to a different play, this is no longer useful
+
     // Below is the controller component of the
-    private void onLogin(ActionEvent e) {
-        if (e.getSource() == this.getBtnLogin()) {
-            String username = this.getTxtUserName().getText().trim();
-            String password = this.getTxtPassword().getText().trim();
+    // private void onLogin(ActionEvent e) {
+    //     if (e.getSource() == this.getBtnLogin()) {
+    //         String username = this.getTxtUserName().getText().trim();
+    //         String password = this.getTxtPassword().getText().trim();
 
-            System.out.println("Login with username = " + username + " and password = " + password);
-            User user = Application.getInstance().getDataAdapter().loadUser(username, password);
+    //         System.out.println("Login with username = " + username + " and password = " + password);
+    //         User user = Application.getInstance().getDataAdapter().loadUser(username, password);
 
-            if (user == null) {
-                JOptionPane.showMessageDialog(null, "This user does not exist!");
-            } else {
-                Application.getInstance().setCurrentUser(user);
-                this.setVisible(false);
-                Application.getInstance().getMainScreen().setVisible(true);
-            }
-            // Add the username section to the mainscreen
-            // JLabel userLabel = new JLabel("User: " + username);
-            // userLabel.setFont(new Font("Sans Serif", Font.BOLD, 20));
-            // JPanel panelUser = new JPanel();
-            // panelUser.add(userLabel);
-            // Application.getInstance().getMainScreen().getContentPane().add(panelUser);
-        }
-    }
+    //         if (user == null) {
+    //             JOptionPane.showMessageDialog(null, "This user does not exist!");
+    //         } else {
+    //             Application.getInstance().setCurrentUser(user);
+    //             this.setVisible(false);
+    //             Application.getInstance().getMainScreen().setVisible(true);
+    //         }
+    //         // Add the username section to the mainscreen
+    //         // JLabel userLabel = new JLabel("User: " + username);
+    //         // userLabel.setFont(new Font("Sans Serif", Font.BOLD, 20));
+    //         // JPanel panelUser = new JPanel();
+    //         // panelUser.add(userLabel);
+    //         // Application.getInstance().getMainScreen().getContentPane().add(panelUser);
+    //     }
+    // }
 }
