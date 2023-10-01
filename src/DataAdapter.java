@@ -95,26 +95,5 @@ public class DataAdapter {
         return null;
     }
 
-    public int saveReceipt(int orderId, String receipt) {
-        try {
-            PreparedStatement statement = connection
-                    .prepareStatement("INSERT INTO Receipts (OrderID, Receipt) VALUES (?,?)");
-            statement.setInt(1, orderId);
-            statement.setString(2, receipt);
-            statement.execute();
-            statement.close();
-            statement = connection.prepareStatement("SELECT last_insert_rowid()");
-            ResultSet set = statement.executeQuery();
-            if (set.next()) {
-                return set.getInt(1);
-            } else {
-                System.out.println("something is wrong");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-
-    }
 
 }
