@@ -39,7 +39,7 @@ public class DataAdapter {
         return false;
     }
 
-    public boolean AddListing(Post post) {
+    public boolean AddListing(Apt post) {
         return false;
     }
 
