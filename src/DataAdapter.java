@@ -28,9 +28,22 @@ public class DataAdapter {
                 statement.setString(3, user.getFullName());
                 statement.setString(4, user.getEmail());
                 statement.execute();
-                statement.close();
                 resultSet.close();
-                return true;
+
+                statement = connection.prepareStatement("SELECT last_insert_rowid()");
+                ResultSet set = statement.executeQuery();
+                if (set.next()) {
+                    user.setUserID(set.getInt(1));
+                    System.out.println("User Id " + user.getUserID());
+                    statement.close();
+                    return true;
+                } else {
+                    user.setUserID(-1);
+                    statement.close();
+                    System.out.println("something is wrong");
+                    return false;
+                }
+
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
