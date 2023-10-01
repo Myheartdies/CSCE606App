@@ -40,6 +40,24 @@ public class DataAdapter {
     }
 
     public boolean AddListing(Apt post) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(
+                    "INSERT INTO RentalApartments (Type, Price, Area, Address,Description,AvailableTime,PostUserID) VALUES (?,?,?,?,?,?,?)");
+            statement.setString(1, post.getType());
+            statement.setDouble(2, post.getPrice());
+            statement.setDouble(3, post.getArea());
+            statement.setString(4, post.getAddress());
+            statement.setString(5, post.getDescr());
+            statement.setString(6, post.getAvailableDate());
+            statement.setInt(7, post.getPosterID());
+            statement.execute();
+            statement.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 

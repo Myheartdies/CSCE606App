@@ -35,6 +35,11 @@ public class Application {
     private MainScreen mainScreen = new MainScreen();
     private RegisterScreen regScreen = new RegisterScreen();
     private ListingScreen aptList = new ListingScreen();
+    private NewPostScreen postingScreen = new NewPostScreen();
+
+    public NewPostScreen getPostingScreen() {
+        return postingScreen;
+    }
 
     public ListingScreen getAptList() {
         return aptList;
@@ -68,6 +73,7 @@ public class Application {
     }
 
     private LoginController loginScreenCtrl = new LoginController();
+    private PostingController postingCtrl = new PostingController();
     
 
     // public LoginController loginController;
@@ -83,6 +89,10 @@ public class Application {
     // public OrderController getOrderController() {
     //     return orderController;
     // }
+
+    public PostingController getPostingCtrl() {
+        return postingCtrl;
+    }
 
     public LoginController getLoginScreenCtrl() {
         return loginScreenCtrl;
