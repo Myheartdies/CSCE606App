@@ -12,13 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ListingScreen extends JFrame {
+public class AptListScreen extends JFrame {
 
     private DefaultTableModel listings = new DefaultTableModel(); // store information for the table!
 
     private JTable ListingTbl = new JTable(listings);
 
-    public ListingScreen() {
+    public JTable getListingTbl() {
+        return ListingTbl;
+    }
+
+    public AptListScreen() {
 
         this.setTitle("Apartment listings");
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));

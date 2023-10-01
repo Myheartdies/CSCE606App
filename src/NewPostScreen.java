@@ -1,6 +1,5 @@
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 // import javafx.event.ActionEvent;
 
@@ -21,32 +20,58 @@ public class NewPostScreen extends JFrame {
     // information for the table!
 
     // private JTable tblItems = new JTable(items);
-    private JLabel labTotal = new JLabel("Total: ");
 
-    // extra field for address and credit card number
     private JTextField propertyNameField = new JTextField(18);
     private JTextField addressField = new JTextField(8);
+
     private JTextField areaField = new JTextField(4);
-    private JTextField typeField = new JTextField(4);
+
     private String[] types = { "1b1b", "2b2b" };
     private JComboBox<String> typeSelect = new JComboBox<>(types);
+
     private JTextField dateField = new JTextField(8);
+
     private JTextField priceField = new JTextField(4);
+
     private JTextArea descrField = new JTextArea(null, 20, 30);
 
-    private double taxRate = 0.03;
+    public JTextField getPropertyNameField() {
+        return propertyNameField;
+    }
 
-    private Order order = null;
+    public JTextField getAddressField() {
+        return addressField;
+    }
+
+    public JTextField getAreaField() {
+        return areaField;
+    }
+
+    public JComboBox<String> getTypeSelect() {
+        return typeSelect;
+    }
+
+    public JTextField getDateField() {
+        return dateField;
+    }
+
+    public JTextField getPriceField() {
+        return priceField;
+    }
+
+    public JTextArea getDescrField() {
+        return descrField;
+    }
 
     public NewPostScreen() {
 
-        this.setTitle("Create New Post");
+        this.setTitle("Create New Listing for Apartment");
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
         this.setSize(400, 900);
 
         JPanel panelPropertyName = new JPanel();
         // panelInput1.setPreferredSize(new Dimension(400, 60));
-        panelPropertyName.add(new JLabel("Property Name:"));
+        panelPropertyName.add(new JLabel("Apartment Name:"));
         panelPropertyName.add(propertyNameField);
         // propertyNameField.setHorizontalAlignment(JTextField.LEFT);
         // panelPropertyName.setBackground(Color.blue);
@@ -92,12 +117,20 @@ public class NewPostScreen extends JFrame {
         // panelButton.setBackground(Color.red);
         // panelButton.setAlignmentX(LEFT_ALIGNMENT);
         panelButton.setPreferredSize(new Dimension(400, 80));
-        panelButton.add(btnAdd);
+        // panelButton.add(btnAdd);
         panelButton.add(btnPost);
         this.getContentPane().add(panelButton);
-        btnAdd.addActionListener(this::addProduct);
-        btnPost.addActionListener(this::makeOrder);
-        order = new Order();
+        // btnAdd.addActionListener(this::makeOrder);
+        btnPost.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Somehow, calling the function from outside of the class make the input field
+                // unaccessable
+                // So Currently I will call it in this class.
+                // Application.getInstance().getPostingCtrl().onPost(e);
+                onPost(e);
+            }
+        });
         this.pack();
     }
 
@@ -109,70 +142,71 @@ public class NewPostScreen extends JFrame {
         return btnPost;
     }
 
-    public JLabel getLabTotal() {
-        return labTotal;
-    }
 
-    // public void addRow(Object[] row) {
-    // items.addRow(row);
-    // }
     // ========================================================================================================
     // Divider for controller section
     // ========================================================================================================
+    public void onPost(ActionEvent ev) {
+        String type;
+        String propertyName;
+        String areaString;
+        String address;
+        String availableDateString;
+        String priceString;
+        String description = this.descrField.getText();
+        areaString = this.areaField.getText();
+        Double area;
+        try {
+            area =  Double.parseDouble(areaString);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "invalid area input");
+            return;
+        }
 
-    private void makeOrder(ActionEvent ev) {
+        priceString = this.areaField.getText();
+        Double price;
+        try {
+            price =  Double.parseDouble(priceString);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "invalid price input");
+            return;
+        }
+        type = (String) this.typeSelect.getSelectedItem();
+        propertyName = this.propertyNameField.getText();
+        if (propertyName.length()<=0){
+            JOptionPane.showMessageDialog(null, "property name cannot be empty");
+            return;
+        }
 
+        availableDateString = this.dateField.getText();
+        if (availableDateString.length()<=0){
+            JOptionPane.showMessageDialog(null, "available date cannot be empty");
+            return;
+        }
+        description =this.descrField.getText();
+
+        address =this.addressField.getText();
+        if (address.length()<=0){
+            JOptionPane.showMessageDialog(null, "address date cannot be empty");
+            return;
+        }
+
+        Apartment post = new Apartment();
+        post.setType(type);
+        post.setPrice(price);
+        post.setArea(area);
+        post.setAddress(address);
+        post.setAvailableDate(availableDateString);
+        post.setPosterID(Application.getInstance().getCurrentUser().getUserID());
+        post.setDescr(description);
+        if(
+        Application.getInstance().getDataAdapter().AddListing(post)
+        ){
+            this.setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Unknown Error");
+        }
     }
 
-    private void addProduct(ActionEvent e) {
-        // if (order == null) {
-        // order = new Order();
-        // }
-
-        String id = JOptionPane.showInputDialog("Enter ProductID: ");
-        int productID = 0;
-        try {
-            productID = Integer.parseInt(id);
-        } catch (NumberFormatException er) {
-            JOptionPane.showMessageDialog(null, "Invalid product ID! Please provide an integer!");
-            return;
-        }
-        Product product = Application.getInstance().getDataAdapter().loadProduct(productID);
-        if (product == null) {
-            JOptionPane.showMessageDialog(null, "This product does not exist!");
-            return;
-        }
-
-        String quantityInput = JOptionPane.showInputDialog(null, "Enter quantity: ");
-        double quantity = 0;
-        try {
-            quantity = Double.parseDouble(quantityInput);
-        } catch (NumberFormatException er) {
-            JOptionPane.showMessageDialog(null, "Invalid quanity! Please provide a double!");
-            return;
-        }
-        if (quantity < 0 || quantity > product.getQuantity()) {
-            JOptionPane.showMessageDialog(null, "This quantity is not valid!");
-            return;
-        }
-
-        OrderLine line = new OrderLine();
-        line.setOrderID(this.order.getOrderID());
-        line.setProductID(product.getProductID());
-        line.setQuantity(quantity);
-        line.setCost(quantity * product.getPrice());
-        order.getLines().add(line);
-        order.setTotalCost(order.getTotalCost() + line.getCost());
-
-        Object[] row = new Object[5];
-        row[0] = line.getProductID();
-        row[1] = product.getName();
-        row[2] = product.getPrice();
-        row[3] = line.getQuantity();
-        row[4] = line.getCost();
-
-        // addRow(row);
-        getLabTotal().setText("Total: $" + order.getTotalCost());
-        invalidate();
-    }
 }
