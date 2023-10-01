@@ -66,20 +66,6 @@ public class Application {
     private LoginController loginScreenCtrl = new LoginController();
     private PostingController postingCtrl = new PostingController();
 
-    // public LoginController loginController;
-
-    // private ProductController productController;
-
-    // public ProductController getProductController() {
-    // return productController;
-    // }
-
-    // private OrderController orderController;
-
-    // public OrderController getOrderController() {
-    // return orderController;
-    // }
-
     public PostingController getPostingCtrl() {
         return postingCtrl;
     }
